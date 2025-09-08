@@ -242,3 +242,114 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- ========================================================
+-- CONSULTAS DE SELECCIÓN (SELECT, JOIN, GROUP BY, SUBQUERIES)
+-- Demuestra dominio de SQL para obtención de información
+-- ========================================================
+
+-- Consulta 1: Productos disponibles en inventario
+SELECT * FROM productos WHERE cantidad_inventario > 0;
+
+-- Consulta 2: Proveedores de un producto específico
+SELECT productos.nombre AS producto, p.nombre AS proveedor, cantidad_inventario 
+FROM productos
+JOIN proveedores p ON p.id = proveedor_id
+WHERE productos.id = 2;
+
+-- Consulta 3: Transacciones en una fecha específica
+SELECT * FROM transacciones WHERE DATE(fecha) = "2025-09-08";
+
+-- Consulta 4: Total de compras (conteo y valor)
+SELECT COUNT(*) AS cantidad_compras, SUM(cantidad) AS productos_comprados 
+FROM transacciones
+WHERE tipo_id = 1;
+
+SELECT SUM(cantidad) AS cantidad_vendida 
+FROM transacciones
+WHERE tipo_id = 2;
+
+SELECT SUM(cantidad * precio_unitario) AS total_compras
+FROM transacciones t
+WHERE tipo_id = 1;
+
+-- Consulta 5: Ventas de un producto en septiembre 2025
+SELECT p.nombre AS producto, SUM(t.cantidad) AS unidades_vendidas, SUM(t.cantidad * t.precio_unitario) AS total_ventas
+FROM transacciones t
+JOIN productos p ON t.producto_id = p.id
+WHERE t.tipo_id = 2 
+  AND t.producto_id = 7
+  AND t.fecha >= '2025-09-01'
+  AND t.fecha < '2025-10-01'
+GROUP BY p.id, p.nombre;
+
+-- Consulta 6: JOINs para información completa de transacciones
+SELECT 
+    t.id AS transaccion_id,
+    tp.tipo_transaccion,
+    t.fecha,
+    p.id AS producto_id,
+    p.nombre AS producto_nombre,
+    p.descripcion AS producto_descripcion,
+    p.precio AS precio_actual_producto,
+    t.cantidad,
+    t.precio_unitario AS precio_en_transaccion,
+    (t.cantidad * t.precio_unitario) AS total_linea,
+    pr.id AS proveedor_id,
+    pr.nombre AS proveedor_nombre,
+    pr.telefono AS proveedor_telefono,
+    pr.email AS proveedor_email
+FROM transacciones t
+INNER JOIN tipo tp ON t.tipo_id = tp.id
+INNER JOIN productos p ON t.producto_id = p.id
+LEFT JOIN proveedores pr ON t.proveedor_id = pr.id
+ORDER BY t.fecha DESC, t.id DESC;
+
+-- Consulta 7: Subconsulta - Productos no vendidos en septiembre 2025
+SELECT 
+    p.id,
+    p.nombre,
+    p.descripcion,
+    p.precio,
+    p.cantidad_inventario,
+    pr.nombre AS proveedor
+FROM productos p
+JOIN proveedores pr ON p.proveedor_id = pr.id
+WHERE p.id NOT IN (
+    SELECT DISTINCT t.producto_id
+    FROM transacciones t
+    JOIN tipo tp ON t.tipo_id = tp.id
+    WHERE tp.tipo_transaccion = 'Venta'
+      AND t.fecha >= '2025-09-01'
+      AND t.fecha < '2025-10-01'
+);
+
+-- ========================================================
+-- LENGUAJE DE MANIPULACIÓN DE DATOS (DML) - DELETE
+-- Ejemplo de eliminación (comentado por seguridad)
+-- Se respeta ON DELETE RESTRICT para integridad
+-- ========================================================
+
+-- EJEMPLO EDUCATIVO DELETE
+-- Eliminar un proveedor SOLO si no tiene productos ni transacciones
+-- Se asigna id no existente para evitar inconvenientes
+-- DELETE FROM proveedores WHERE id = 999;
+
+-- Eliminar un producto SOLO si no tiene transacciones (gracias a ON DELETE RESTRICT)
+-- Se asigna id no existente para evitar accidentes
+-- DELETE FROM productos WHERE id = 999;
+
+
+-- ========================================================
+-- Verificación final - Ejecutar transacciones de prueba
+-- ========================================================
+
+CALL RegistrarTransaccion('Venta', NULL, 5, 1);
+CALL RegistrarTransaccion('Venta', NULL, 2, 1);
+CALL RegistrarTransaccion('Venta', NULL, 7, 3);
+
+SELECT * FROM productos; -- Verificar actualización de stock
+
+CALL RegistrarTransaccion('Compra', 3, 6, 2);
+
+SELECT * FROM transacciones; -- Verificar registro histórico
