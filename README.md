@@ -51,6 +51,8 @@ Proyecto desarrollado con **Programación Orientada a Objetos (POO)** que simula
 - ✅ **Menú interactivo**: opciones para agregar, eliminar, buscar, prestar y devolver libros.
 - ✅ **Manejo de errores**: validación de entradas y gestión robusta de archivos.
 
+> 📌 Este proyecto demuestra el uso avanzado de POO en Python, ideal para consolidar conocimientos de clases, métodos, archivos y diseño modular.
+
 ## 🗃️ Sistema de Inventario - Star Wars Edition (Gestión de Bases de Datos)
 
 Proyecto académico y profesional desarrollado para demostrar competencias en gestión de bases de datos relacionales, usando **MySQL**. Incluye:
@@ -64,7 +66,7 @@ Proyecto académico y profesional desarrollado para demostrar competencias en ge
 - ✅ **Datos de prueba temáticos**: Proveedores y productos del universo Star Wars.
 - ✅ **Documentación interna**: Todo el script está comentado para uso educativo y evaluación de portafolio.
 
-> 📌 Este proyecto demuestra el uso avanzado de POO en Python, ideal para consolidar conocimientos de clases, métodos, archivos y diseño modular.
+> 📌 Este proyecto cumple con las siguientes competencias en gestión de bases de datos: modelado, normalización, DDL, DML, consultas, procedimientos y transacciones.
 
 ---
 
