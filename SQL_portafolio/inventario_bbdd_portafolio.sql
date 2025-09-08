@@ -130,3 +130,115 @@ INSERT INTO productos (nombre, descripcion, precio, cantidad_inventario, proveed
 ('Speeder Bike 74-Z', 'Moto de combate imperial. Velocidad máxima 500km/h.', 350000, 8, 3),
 ('Thermal Detonator', 'Granada de alto poder. ¡Cuidado al manipular!', 75000, 50, 5),
 ('Protocol Droid C-3PO (réplica)', 'Traductor galáctico. 6 millones de formas de comunicación.', 450000, 3, 4);
+
+
+-- ========================================================
+-- LENGUAJE DE MANIPULACIÓN DE DATOS (DML) - UPDATE + PROCEDIMIENTO
+-- Procedimiento almacenado para registrar transacciones
+-- Maneja transacciones atómicas, validación y actualización de stock
+-- ========================================================
+
+DELIMITER //
+
+CREATE PROCEDURE RegistrarTransaccion(
+    IN p_tipo_transaccion VARCHAR(15),     
+    IN p_proveedor_id INT,
+    IN p_producto_id INT,
+    IN p_cantidad INT
+)
+BEGIN
+    DECLARE v_tipo_id INT;
+    DECLARE v_precio_actual INT;
+    DECLARE v_stock_actual INT;
+    DECLARE v_operacion VARCHAR(10);
+
+    -- Iniciar transacción manual
+    SET autocommit = 0;
+    START TRANSACTION;
+
+    -- Validar tipo de transacción
+    SELECT id INTO v_tipo_id
+    FROM tipo
+    WHERE tipo_transaccion = p_tipo_transaccion;
+
+    IF v_tipo_id IS NULL THEN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Tipo de transacción no válido. Use "Compra" o "Venta".';
+    END IF;
+
+    -- Obtener precio y stock actual del producto
+    SELECT precio, cantidad_inventario
+    INTO v_precio_actual, v_stock_actual
+    FROM productos
+    WHERE id = p_producto_id
+    FOR UPDATE; 
+
+    IF v_precio_actual IS NULL THEN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Producto no encontrado.';
+    END IF;
+
+    -- Validar proveedor según tipo
+    IF p_tipo_transaccion = 'Compra' AND p_proveedor_id IS NULL THEN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Debe especificar proveedor_id para una compra.';
+    END IF;
+
+    IF p_tipo_transaccion = 'Venta' AND p_proveedor_id IS NOT NULL THEN
+        SET p_proveedor_id = NULL; -- Forzar NULL en ventas
+    END IF;
+
+    -- Validar stock y determinar operación
+    IF p_tipo_transaccion = 'Venta' THEN
+        SET v_operacion = 'salida';
+        IF p_cantidad > v_stock_actual THEN
+            ROLLBACK;
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Stock insuficiente para realizar la venta.';
+        END IF;
+    ELSEIF p_tipo_transaccion = 'Compra' THEN
+        SET v_operacion = 'entrada';
+    ELSE
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Tipo de transacción no soportado.';
+    END IF;
+
+    -- Registrar transacción (precio histórico)
+    INSERT INTO transacciones (
+        tipo_id,
+        proveedor_id,
+        producto_id,
+        cantidad,
+        precio_unitario
+    ) VALUES (
+        v_tipo_id,
+        p_proveedor_id,
+        p_producto_id,
+        p_cantidad,
+        v_precio_actual
+    );
+
+    -- Actualizar inventario
+    IF v_operacion = 'salida' THEN
+        UPDATE productos
+        SET cantidad_inventario = cantidad_inventario - p_cantidad
+        WHERE id = p_producto_id;
+    ELSE
+        UPDATE productos
+        SET cantidad_inventario = cantidad_inventario + p_cantidad
+        WHERE id = p_producto_id;
+    END IF;
+
+    -- Confirmar transacción
+    COMMIT;
+    SET autocommit = 1;
+
+    SELECT 'Transacción registrada exitosamente.' AS mensaje;
+
+END //
+
+DELIMITER ;
