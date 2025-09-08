@@ -11,7 +11,7 @@ Este repositorio evolucionará incluyendo distintas tecnologías y enfoques.
 
 ### 🐍 Lenguajes actuales:
 - **Python** (Problemas iniciales, algoritmos básicos, POO y proyectos funcionales)
-
+- **SQL / MySQL** (Modelado, normalización, DDL, DML, procedimientos almacenados, consultas complejas)
 ---
 
 ## 🗂️ Estructura del repositorio
@@ -33,6 +33,11 @@ Este repositorio evolucionará incluyendo distintas tecnologías y enfoques.
 | ├── `Biblioteca.py` | Gestor principal con menú interactivo y persistencia en archivo |
 | ├── `biblioteca.txt` | Archivo de datos en formato CSV |
 | ├── `README.md` | Documentación detallada del proyecto |
+| **sql/** | Proyecto de Sistema de Inventario - Star Wars Edition (Gestión de Bases de Datos Relacionales) |
+| ├── `inventario_bbdd_portafolio.sql` | Script SQL completo: DDL, DML, procedimientos, consultas, comentarios educativos |
+| ├── `ERD_inventario_portafolio.mwb` | Modelo ER en formato MySQL Workbench (editable) |
+| ├── `ERD_imagen_inventario_portafolio.png` | Diagrama Entidad-Relación (visualización rápida) |
+
 
 ---
 
@@ -40,11 +45,24 @@ Este repositorio evolucionará incluyendo distintas tecnologías y enfoques.
 
 Proyecto desarrollado con **Programación Orientada a Objetos (POO)** que simula un sistema completo de biblioteca. Incluye:
 
-- ✅ **Encapsulamiento**: atributo privado `__estado` con métodos `get` y `set`
-- ✅ **Herencia y polimorfismo**: clase `LibroDigital` que extiende `Libro`
-- ✅ **Persistencia**: datos guardados en `biblioteca.txt` (formato CSV)
-- ✅ **Menú interactivo**: opciones para agregar, eliminar, buscar, prestar y devolver libros
-- ✅ **Manejo de errores**: validación de entradas y gestión robusta de archivos
+- ✅ **Encapsulamiento**: atributo privado `__estado` con métodos `get` y `set`.
+- ✅ **Herencia y polimorfismo**: clase `LibroDigital` que extiende `Libro`.
+- ✅ **Persistencia**: datos guardados en `biblioteca.txt` (formato CSV).
+- ✅ **Menú interactivo**: opciones para agregar, eliminar, buscar, prestar y devolver libros.
+- ✅ **Manejo de errores**: validación de entradas y gestión robusta de archivos.
+
+## 🗃️ Sistema de Inventario - Star Wars Edition (Gestión de Bases de Datos)
+
+Proyecto académico y profesional desarrollado para demostrar competencias en gestión de bases de datos relacionales, usando **MySQL**. Incluye:
+
+- ✅ **Modelado ER**: Diagrama generado con MySQL Workbench (archivo .mwb editable y .png para visualización).
+- ✅ **Normalización hasta 3NF**: Tablas diseñadas sin redundancias, con claves primarias y foráneas.
+- ✅ **DDL (Data Definition Language)**: Creación de esquema, tablas, índices, restricciones.
+- ✅ **DML (Data Manipulation Language)**: Inserción, actualización (vía procedimiento), eliminación (ejemplo comentado).
+- ✅ **Procedimiento Almacenado**: RegistrarTransaccion con manejo transaccional (START TRANSACTION, COMMIT, ROLLBACK), validación de stock y copia de precios históricos.
+- ✅ **Consultas SQL Complejas**: Uso de JOIN, GROUP BY, funciones de agregación, subconsultas.
+- ✅ **Datos de prueba temáticos**: Proveedores y productos del universo Star Wars.
+- ✅ **Documentación interna**: Todo el script está comentado para uso educativo y evaluación de portafolio.
 
 > 📌 Este proyecto demuestra el uso avanzado de POO en Python, ideal para consolidar conocimientos de clases, métodos, archivos y diseño modular.
 
