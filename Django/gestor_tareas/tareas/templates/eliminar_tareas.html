@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Tarea{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Eliminar Tareas</h1>
+    <div class="container d-flex gap-5 flex-wrap">
+        {% for tarea in tareas %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <button type="button" class="btn-close float-end" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ tarea.id }}"></button>
+                <h5 class="card-title">{{ tarea.titulo }}</h5>
+                <p class="card-text">{{ tarea.descripcion|truncatewords:6 }}</p>
+                <a href="{% url 'detalles_tarea' tarea.id %}" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+            </div>
+        </div>
+
+        <!-- Modal de confirmación -->
+        <div class="modal fade" id="confirmDeleteModal{{ tarea.id }}" tabindex="-1" aria-labelledby="confirmDeleteLabel{{ tarea.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteLabel{{ tarea.id }}">¿Eliminar tarea?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que deseas eliminar la tarea "<strong>{{ tarea.titulo }}</strong>"? Esta acción no se puede deshacer.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form method="post" action="{% url 'eliminar_tarea' tarea.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No tienes tareas creadas.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

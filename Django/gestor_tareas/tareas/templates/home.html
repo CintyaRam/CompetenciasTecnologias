@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Gestor de Tareas{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h2>Mis Tareas</h2>
+    {% if tareas %}
+        <div class="row">
+            {% for tarea in tareas %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tarea.titulo }}</h5>
+                            <p class="card-text">{{ tarea.descripcion|truncatewords:10 }}</p>
+                            <a href="{% url 'detalles_tarea' tarea.id %}" class="btn btn-outline-primary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No tienes tareas aún. <a href="{% url 'crear_tarea' %}">¡Crea una!</a></p>
+    {% endif %}
+{% endif %}
+{% endblock %}

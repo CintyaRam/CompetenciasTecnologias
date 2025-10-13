@@ -12,6 +12,7 @@ Este repositorio evolucionará incluyendo distintas tecnologías y enfoques.
 ### 🐍 Lenguajes actuales:
 - **Python** (Problemas iniciales, algoritmos básicos, POO y proyectos funcionales)
 - **SQL / MySQL** (Modelado, normalización, DDL, DML, procedimientos almacenados, consultas complejas)
+- **Django** (Aplicación funcional con vistas, formularios, autenticación y manejo de sesiones en memoria; sin base de datos persistente. Incluye uso de **Bootstrap**, **plantillas HTML** y **autenticación de usuarios** mediante el sistema integrado de Django)
 ---
 
 ## 🗂️ Estructura del repositorio
@@ -37,6 +38,38 @@ Este repositorio evolucionará incluyendo distintas tecnologías y enfoques.
 | ├── `inventario_bbdd_portafolio.sql` | Script SQL completo: DDL, DML, procedimientos, consultas, comentarios educativos |
 | ├── `ERD_inventario_portafolio.mwb` | Modelo ER en formato MySQL Workbench (editable) |
 | ├── `ERD_imagen_inventario_portafolio.png` | Diagrama Entidad-Relación (visualización rápida) |
+| **GESTOR_TAREAS/** | Proyecto Django de gestión de tareas con estructura modular |
+| ├── **gestor_tareas/** | Configuración principal del proyecto |
+| │   ├── `__init__.py` | Inicialización del módulo del proyecto |
+| │   ├── `asgi.py` | Configuración para el servidor ASGI |
+| │   ├── `settings.py` | Configuración general del proyecto (apps, BD, rutas estáticas, etc.) |
+| │   ├── `urls.py` | Enrutamiento global del proyecto |
+| │   └── `wsgi.py` | Configuración para el servidor WSGI |
+| ├── **static/** | Archivos estáticos (CSS, imágenes, etc.) |
+| │   ├── `css/` | Hojas de estilo del proyecto |
+| │   └── `img/` | Imágenes utilizadas en las plantillas |
+| ├── **tareas/** | Aplicación principal del proyecto |
+| │   ├── `__init__.py` | Inicialización del módulo de la app |
+| │   ├── `admin.py` | Registro de modelos para el panel de administración |
+| │   ├── `apps.py` | Configuración de la aplicación Django |
+| │   ├── `formularios.py` | Formularios personalizados para manejo de tareas |
+| │   ├── `models.py` | Modelo de datos `Tarea` (definido pero no conectado a la BD) |
+| │   ├── `tests.py` | Pruebas automáticas del módulo |
+| │   ├── `urls.py` | Rutas específicas de la app `tareas` |
+| │   ├── `views.py` | Lógica de control y renderizado de vistas |
+| │   └── **templates/** | Plantillas HTML del proyecto |
+| │       ├── `base.html` | Plantilla base reutilizable |
+| │       ├── `crear_tarea.html` | Formulario para crear nuevas tareas |
+| │       ├── `detalles_tarea.html` | Vista con detalles individuales de una tarea |
+| │       ├── `eliminar_tareas.html` | Confirmación y eliminación de tareas |
+| │       └── `home.html` | Página principal con listado de tareas |
+| ├── **venv/** | Entorno virtual del proyecto (auto-generado) |
+| ├── `.gitignore` | Archivos y carpetas ignorados por Git |
+| ├── `db.sqlite3` | Base de datos SQLite (vacía, sin uso activo) |
+| ├── `manage.py` | Script principal de administración de Django |
+| ├── `README.md` | Archivo de documentación del proyecto |
+| ├── `requirements.txt` | Dependencias del proyecto |
+| └── `shell.py` | Script opcional (puede eliminarse si no se usa) |
 
 
 ---
@@ -67,6 +100,25 @@ Proyecto académico y profesional desarrollado para demostrar competencias en ge
 - ✅ **Documentación interna**: Todo el script está comentado para uso educativo y evaluación de portafolio.
 
 > 📌 Este proyecto cumple con las siguientes competencias en gestión de bases de datos: modelado, normalización, DDL, DML, consultas, procedimientos y transacciones.
+
+---
+
+# 📋 Gestor de Tareas - Liz-Taylor
+
+Una aplicación simple para gestionar tareas personales, desarrollada con **Django 5.2**.  
+Este proyecto **no utiliza base de datos**: todas las tareas se almacenan en memoria (en la sesión del usuario), ideal para demostraciones o aprendizaje.
+
+---
+
+## 🌟 Funcionalidades
+
+- ✅ **Crear tareas** con título y descripción.  
+- ✅ **Ver solo tus tareas** (filtradas por usuario autenticado).  
+- ✅ **Ver detalles** de una tarea específica.  
+- ✅ **Eliminar tareas** individualmente.  
+- ✅ **Autenticación básica** (login/logout con usuarios del sistema).  
+
+> 💡 **Importante**: los datos son temporales. Se pierden al reiniciar el servidor.
 
 ---
 

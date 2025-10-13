@@ -1,0 +1,45 @@
+/* static/css/custom.css */
+.jumbotron-custom {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                      url('../img/hero.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.jumbotron-custom h1,
+.jumbotron-custom p {
+    color: white;
+}
+
+
+/* Tarjetas */
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.card .card-title {
+    font-weight: 800;
+}
+
+.card .card-text {
+    font-size: 0.9rem;
+}
+
+/* Botones en navbar */
+.navbar .nav-link {
+    color: white !important;
+    font-weight: 500;
+}
+.navbar-brand {
+    color: rgb(87, 87, 87) !important;
+    font-weight: 1000;
+}
+
+.navbar .nav-link:hover {
+    color: #fff !important;
+    text-decoration: underline;
+}
+
