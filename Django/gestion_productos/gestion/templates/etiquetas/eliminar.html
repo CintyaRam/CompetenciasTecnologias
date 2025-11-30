@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Eliminar Etiqueta{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4 text-danger">Eliminar Etiqueta</h2>
+
+<p>¿Seguro que deseas eliminar la etiqueta <strong>{{ etiqueta.nombre }}</strong>?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">
+        <i class="bi bi-trash"></i> Eliminar
+    </button>
+
+    <a href="{% url 'lista_etiquetas' %}" class="btn btn-secondary ms-2">
+        <i class="bi bi-arrow-left"></i> Cancelar
+    </a>
+</form>
+
+{% endblock %}

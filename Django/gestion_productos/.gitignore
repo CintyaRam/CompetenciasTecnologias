@@ -1,0 +1,63 @@
+# ==============
+# ENTORNO VIRTUAL
+# ==============
+venv/
+env/
+.venv/
+
+# ==============
+# ARCHIVOS PYTHON
+# ==============
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# ============
+# DJANGO
+# ============
+# Archivos de base de datos (si usas SQLite)
+db.sqlite3
+db.sqlite3-journal
+
+
+# Archivos de configuración local
+*.local
+*.secret
+*.backup
+
+# Archivos generados por Django
+media/
+staticfiles/
+static_root/
+*.log
+
+# ============
+# IDEs / EDITORES
+# ============
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# PyCharm
+*.iml
+
+# ============
+# ARCHIVOS DEL SISTEMA
+# ============
+.DS_Store
+Thumbs.db
+
+# ============
+# ARCHIVOS TEMPORALES
+# ============
+*.tmp
+*.bak
+
+# ============
+# ENTORNOS / DEPENDENCIAS
+# ============
+pip-log.txt
+pip-delete-this-directory.txt

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultas ORM{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Consultas ORM</h2>
+
+<!-- 1 -->
+<h4>1. Productos con precio mayor a $10.000</h4>
+<ul>
+    {% for p in productos_mayor_10000 %}
+        <li>{{ p.nombre }} - ${{ p.precio }}</li>
+    {% empty %}
+        <li>No hay productos</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- 2 -->
+<h4>2. Productos ordenados por precio (descendente)</h4>
+<ul>
+    {% for p in productos_ordenados_desc %}
+        <li>{{ p.nombre }} - ${{ p.precio }}</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- 3 -->
+<h4>3. Categorías con cantidad de productos</h4>
+<ul>
+    {% for c in categorias_con_cantidad %}
+        <li>
+            {{ c.nombre }} → {{ c.total_productos }} productos
+        </li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- 4 -->
+<h4>4. Productos de la categoría con ID = 1</h4>
+<ul>
+    {% for p in productos_categoria_1 %}
+        <li>{{ p.nombre }}</li>
+    {% empty %}
+        <li>No hay productos en esta categoría</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- 5 -->
+<h4>5. Productos con etiqueta ID = 1</h4>
+<ul>
+    {% for p in productos_etiqueta_1 %}
+        <li>{{ p.nombre }}</li>
+    {% empty %}
+        <li>No hay productos para esta etiqueta</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- 6 -->
+<h4>6. Precio promedio de todos los productos</h4>
+<p>${{ precio_promedio.precio__avg }}</p>
+
+<hr>
+
+<!-- 7 -->
+<h4>7. Producto más caro</h4>
+<p>${{ producto_mas_caro.precio__max }}</p>
+
+<hr>
+
+<!-- 8 -->
+<h4>8. Producto más barato</h4>
+<p>${{ producto_mas_barato.precio__min }}</p>
+
+<hr>
+
+<!-- 9 -->
+<h4>9. Productos sin etiquetas</h4>
+<ul>
+    {% for p in productos_sin_etiquetas %}
+        <li>{{ p.nombre }}</li>
+    {% empty %}
+        <li>Todos tienen etiquetas</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- 10 -->
+<h4>10. Etiquetas más usadas</h4>
+<ul>
+    {% for e in etiquetas_ordenadas %}
+        <li>{{ e.nombre }} — Usada {{ e.total_usos }} veces</li>
+    {% endfor %}
+</ul>
+
+<!-- 11 -->
+<hr>
+
+<h4>11. Productos que NO pertenecen a la categoría con ID = 1 (exclude)</h4>
+<ul>
+    {% for p in productos_excluye_categoria_1 %}
+        <li>{{ p.nombre }} — Categoría: {{ p.categoria.nombre }}</li>
+    {% empty %}
+        <li>No hay productos fuera de esa categoría.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

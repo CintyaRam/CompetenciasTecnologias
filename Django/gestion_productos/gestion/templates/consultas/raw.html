@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultas RAW SQL{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Consultas RAW SQL</h2>
+
+<!-- RAW 1 -->
+<h4>1. Productos con precio mayor a $10.000</h4>
+<ul>
+    {% for p in productos_mayor_10000 %}
+        <li>{{ p.nombre }} - ${{ p.precio }}</li>
+    {% empty %}
+        <li>No hay productos.</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- RAW 2 -->
+<h4>2. Productos ordenados por precio (descendente)</h4>
+<ul>
+    {% for p in productos_ordenados_desc %}
+        <li>{{ p.nombre }} - ${{ p.precio }}</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- RAW 3 -->
+<h4>3. Productos con su categoría (JOIN manual)</h4>
+<ul>
+    {% for p in productos_con_categoria %}
+        <li>{{ p.nombre }} — ${{ p.precio }} | Categoría: {{ p.categoria_nombre }}</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- RAW 4 -->
+<h4>4. Productos por categoría con parámetro (categoria_id = 1)</h4>
+<ul>
+    {% for p in productos_por_categoria %}
+        <li>{{ p.nombre }} — ${{ p.precio }}</li>
+    {% empty %}
+        <li>No hay productos para esta categoría.</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- RAW 5 -->
+<h4>5. Conteo de productos por categoría (cursor manual)</h4>
+<ul>
+    {% for nombre, total in categorias_conteo %}
+        <li>{{ nombre }} → {{ total }} productos</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

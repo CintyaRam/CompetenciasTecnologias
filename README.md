@@ -70,6 +70,29 @@ Este repositorio evolucionará incluyendo distintas tecnologías y enfoques.
 | ├── `README.md` | Archivo de documentación del proyecto |
 | ├── `requirements.txt` | Dependencias del proyecto |
 | └── `shell.py` | Script opcional (puede eliminarse si no se usa) |
+| **gestion_productos/** | Proyecto Django completo para la gestión de productos, categorías, etiquetas y detalles (CRUD + ORM + RAW SQL + Bootstrap) |
+| ├── **gestion_productos/** | Configuración principal del proyecto Django |
+| │   ├── `settings.py` | Configuración del proyecto (apps, rutas, plantillas, estáticos, BD SQLite) |
+| │   ├── `urls.py` | Enrutamiento global del proyecto |
+| │   └── `wsgi.py` | Punto de entrada WSGI |
+| ├── **gestion/** | Aplicación principal del sistema de gestión de productos |
+| │   ├── `models.py` | Modelos: Producto, Categoría, Etiqueta y Detalle (FK, ManyToMany, OneToOne) |
+| │   ├── `forms.py` | Formularios basados en ModelForms, organizados para CRUD completo |
+| │   ├── `views.py` | Lógica del CRUD + Consultas ORM avanzadas + Consultas RAW |
+| │   ├── `urls.py` | Rutas específicas del módulo de productos |
+| │   ├── `admin.py` | Panel admin personalizado con filtros, búsqueda y columnas extras |
+| │   └── **templates/** | Plantillas HTML con Bootstrap 5 y Bootstrap Icons |
+| │       ├── `base.html` | Plantilla base con navbar, footer sticky y estilos globales |
+| │       ├── `productos/` | CRUD completo (listar, crear, editar, eliminar, ver detalle) |
+| │       ├── `categorias/` | CRUD completo de categorías |
+| │       ├── `etiquetas/` | CRUD completo de etiquetas |
+| │       └── `consultas/` | Plantillas para consultas ORM y RAW |
+| ├── **static/** | Archivos estáticos (CSS personalizado) |
+| │   └── `css/style.css` | Estilos adicionales para tablas, formularios y contenedores |
+| ├── **img/** | Capturas de pantalla del proyecto (admin, CRUD, consultas, etc.) |
+| ├── `manage.py` | Script principal para ejecutar y administrar el proyecto |
+| ├── `db.sqlite3` | Base de datos SQLite del proyecto (modo desarrollo) |
+| └── `README.md` | Documentación completa del sistema de gestión de productos |
 
 
 ---
@@ -121,6 +144,57 @@ Este proyecto **no utiliza base de datos**: todas las tareas se almacenan en mem
 > 💡 **Importante**: los datos son temporales. Se pierden al reiniciar el servidor.
 
 ---
+
+# 📦 Sistema de Gestión de Productos – Django
+
+Aplicación desarrollada con **Django 5.2**, enfocada en la administración completa de productos, categorías, etiquetas y detalles asociados.  
+Este proyecto implementa **todas las operaciones CRUD**, consultas complejas utilizando el ORM de Django y consultas SQL RAW para análisis avanzados.
+
+Incluye una interfaz web estilizada con **Bootstrap 5**, navegación intuitiva y panel administrativo completamente configurado.
+
+---
+
+## 🌟 Funcionalidades
+
+- ✅ **CRUD completo de productos**: crear, listar, editar, eliminar y ver detalles.  
+- ✅ **CRUD completo de categorías**: administración de categorías asociadas a productos.  
+- ✅ **CRUD completo de etiquetas**: clasificación por etiquetas con relación ManyToMany.  
+- ✅ **Relación Uno a Uno** para detalles de producto (dimensiones y peso).  
+- ✅ **Consultas ORM avanzadas**, incluyendo:
+  - Filtrar productos por categoría  
+  - Listar productos sin etiquetas  
+  - Ordenar por precio  
+  - `annotate()`, `aggregate()`, `exclude()`, combinaciones complejas  
+- ✅ **Consultas SQL RAW**:
+  - JOINS manuales  
+  - GROUP BY por categoría  
+  - Consultas parametrizadas  
+- ✅ **Panel de administración Django personalizado**:
+  - Filtros laterales  
+  - Búsqueda por campos  
+  - Columnas personalizadas  
+  - Gestión optimizada de relaciones ManyToMany  
+- ✅ **Interfaz con Bootstrap**:
+  - Navbar con menús desplegables  
+  - Botones con íconos  
+  - Tablas estilizadas  
+  - Footer sticky-bottom  
+
+---
+
+## 🧱 Componentes del sistema
+
+- **Modelos completos** (ForeignKey, ManyToMany, OneToOne).  
+- **Formularios ModelForm** para todas las entidades.  
+- **Templates organizados** en carpetas por módulo.  
+- **Consultas ORM y RAW** totalmente integradas en vistas.  
+- **Capturas** dentro de la carpeta `/img`.  
+- **Documentación adicional** en el README del proyecto.  
+
+---
+
+> 💡 **Proyecto ideal para demostrar competencias avanzadas en Django (modelo, vistas, URLs, formularios, administración, consultas ORM y SQL, diseño responsive con Bootstrap).**
+
 
 ## ❤️ ¿Te gustó este proyecto?
 

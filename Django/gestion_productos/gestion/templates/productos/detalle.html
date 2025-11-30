@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle del Producto{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Detalle del Producto</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h4 class="card-title">{{ producto.nombre }}</h4>
+
+        <p class="card-text">
+            <strong>Descripción:</strong><br>
+            {{ producto.descripcion }}
+        </p>
+
+        <p>
+            <strong>Precio:</strong> ${{ producto.precio }}
+        </p>
+
+        <p>
+            <strong>Categoría:</strong> {{ producto.categoria.nombre }}
+        </p>
+
+        <p>
+            <strong>Etiquetas:</strong><br>
+            {% if producto.etiquetas.all %}
+                {% for e in producto.etiquetas.all %}
+                    <span class="badge bg-primary">{{ e.nombre }}</span>
+                {% endfor %}
+            {% else %}
+                <span class="text-muted">Sin etiquetas</span>
+            {% endif %}
+        </p>
+
+        <hr>
+
+        <h5>Detalles</h5>
+
+        <p><strong>Dimensiones:</strong> {{ producto.detalle.dimensiones }}</p>
+        <p><strong>Peso:</strong> {{ producto.detalle.peso }} kg</p>
+
+        <div class="mt-4">
+            <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning me-2">
+                <i class="bi bi-pencil-square"></i> Editar
+            </a>
+
+            <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger me-2">
+                <i class="bi bi-trash"></i> Eliminar
+            </a>
+
+            <a href="{% url 'lista_productos' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver al listado
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
